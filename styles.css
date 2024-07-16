@@ -1,0 +1,135 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #e6ecf0;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 25%;
+    padding-top: 20px;
+    background-color: #15202b;
+}
+
+.sidebar h1 {
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-link {
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.nav-link i {
+    font-size: 1.5em;
+}
+
+.main-content {
+    background-color: #f5f8fa;
+    min-height: 100vh;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 70px;
+}
+
+.profile-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 25%;
+    height: 100vh;
+    overflow-y: auto;
+    padding-top: 70px;
+}
+
+.tweet-box {
+    margin-bottom: 20px;
+    border: 1px solid #e1e8ed;
+}
+
+.posts {
+    margin-top: 20px;
+}
+
+.post {
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #e1e8ed;
+}
+
+.post p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.post .actions {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.post .actions button {
+    background-color: #e0245e;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.post .actions button.edit {
+    background-color: #1da1f2;
+    margin-right: 5px;
+}
+
+.post .actions button:hover {
+    opacity: 0.8;
+}
+
+.trends-list .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.trends-list .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.trend-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.list-group-item .d-flex {
+    align-items: center;
+}
+
+.list-group-item img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.list-group-item button {
+    margin-left: auto;
+}
+
+
+
