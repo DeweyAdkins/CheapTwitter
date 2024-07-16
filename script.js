@@ -6,8 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageButton = document.getElementById('imageButton');
     const imagePreview = document.getElementById('imagePreview');
     const postsContainer = document.getElementById('posts');
+    const charCount = document.getElementById('charCount');
     let uploadedImage = '';
     let imageRemoved = false;
+
+    contentInput.addEventListener('input', () => {
+        charCount.textContent = `${contentInput.value.length}/280`;
+    });
 
     imageButton.addEventListener('click', () => {
         imageUpload.click();
@@ -31,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const postId = postIdInput.value;
         const content = contentInput.value.trim();
 
+        if (content.length > 280) {
+            alert('Tweet cannot exceed 280 characters.');
+            return;
+        }
+
         if (!content && !uploadedImage) {
             return; // Prevent posting empty tweets
         }
@@ -46,16 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreview.innerHTML = '';
         uploadedImage = '';
         imageRemoved = false;
+        charCount.textContent = '0/280';
         displayPosts();
     });
 
     function createPost(content, image) {
         const posts = getPosts();
+        const now = new Date();
         const newPost = {
             id: Date.now().toString(),
             username: 'Brie',
             handle: '@Skitch_ComedyFan',
-            timestamp: 'Just now',
+            timestamp: now.toISOString(),
             content,
             image,
             profileImage: 'https://via.placeholder.com/50'
@@ -95,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayPosts() {
         const posts = getPosts();
-        postsContainer.innerHTML = posts.map(post => `
+        postsContainer.innerHTML = posts.reverse().map(post => `
             <div class="post" id="post-${post.id}">
                 <img src="${post.profileImage}" alt="Profile Image">
                 <div class="post-content">
@@ -103,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div>
                             <span class="username">${post.username}</span>
                             <span class="handle">${post.handle}</span>
-                            <span class="timestamp">${post.timestamp}</span>
+                            <span class="timestamp">${formatTimestamp(post.timestamp)}</span>
                         </div>
                         <div class="actions">
                             <button class="edit btn btn-info btn-sm" onclick="editPost('${post.id}')">Edit</button>
@@ -127,6 +139,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `).join('');
+    }
+
+    function formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        return date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        });
     }
 
     window.editPost = function(id) {
@@ -211,4 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayPosts();
 });
+
+
+
 
