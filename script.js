@@ -3,23 +3,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const postIdInput = document.getElementById('postId');
     const contentInput = document.getElementById('content');
     const imageUpload = document.getElementById('imageUpload');
+    const imageButton = document.getElementById('imageButton');
+    const imagePreview = document.getElementById('imagePreview');
     const postsContainer = document.getElementById('posts');
+    let uploadedImage = '';
+
+    imageButton.addEventListener('click', () => {
+        imageUpload.click();
+    });
+
+    imageUpload.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                uploadedImage = e.target.result;
+                imagePreview.innerHTML = `<img src="${uploadedImage}" alt="Image Preview">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
     postForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const postId = postIdInput.value;
-        const content = contentInput.value;
-        const image = imageUpload.files[0];
+        const content = contentInput.value.trim();
+
+        if (!content && !uploadedImage) {
+            return; // Prevent posting empty tweets
+        }
 
         if (postId) {
-            updatePost(postId, content, image);
+            updatePost(postId, content, uploadedImage);
         } else {
-            createPost(content, image);
+            createPost(content, uploadedImage);
         }
 
         postForm.reset();
         postIdInput.value = '';
+        imagePreview.innerHTML = '';
+        uploadedImage = '';
         displayPosts();
     });
 
@@ -29,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
             id: Date.now().toString(),
             username: 'Brie',
             handle: '@Skitch_ComedyFan',
-            timestamp: '3m',
+            timestamp: 'Just now',
             content,
-            image: image ? URL.createObjectURL(image) : '',
+            image,
             profileImage: 'https://via.placeholder.com/50'
         };
         posts.push(newPost);
@@ -43,9 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
             posts[postIndex].content = content;
-            if (image) {
-                posts[postIndex].image = URL.createObjectURL(image);
-            }
+            posts[postIndex].image = image;
             savePosts(posts);
         }
     }
@@ -84,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="post-body">
                         <p id="content-${post.id}">${post.content}</p>
-                        ${post.image ? `<img src="${post.image}" alt="Post Image" class="img-fluid mt-2">` : ''}
+                        ${post.image ? `<img src="${post.image}" alt="Tweet Image" class="img-fluid">` : ''}
                         <textarea class="form-control edit-textarea" id="edit-content-${post.id}" rows="3" style="display:none;">${post.content}</textarea>
                         <button class="btn btn-primary mt-2" id="save-${post.id}" style="display:none;" onclick="saveEdit('${post.id}')">Save</button>
                     </div>
@@ -127,3 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayPosts();
 });
+
+
+
+
