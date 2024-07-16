@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayPosts() {
         const posts = getPosts();
         postsContainer.innerHTML = posts.map(post => `
-            <div class="post">
+            <div class="post" id="post-${post.id}">
                 <img src="${post.profileImage}" alt="Profile Image">
                 <div class="post-content">
                     <div class="post-header">
@@ -77,7 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                     <div class="post-body">
-                        <p>${post.content}</p>
+                        <p id="content-${post.id}">${post.content}</p>
+                        <textarea class="form-control edit-textarea" id="edit-content-${post.id}" rows="3" style="display:none;">${post.content}</textarea>
+                        <button class="btn btn-primary mt-2" id="save-${post.id}" style="display:none;" onclick="saveEdit('${post.id}')">Save</button>
                     </div>
                     <div class="post-footer">
                         <i class="far fa-comment"></i>
@@ -91,18 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.editPost = function(id) {
-        const posts = getPosts();
-        const post = posts.find(post => post.id === id);
-        if (post) {
-            postIdInput.value = post.id;
-            contentInput.value = post.content;
-        }
+        const contentElement = document.getElementById(`content-${id}`);
+        const editElement = document.getElementById(`edit-content-${id}`);
+        const saveButton = document.getElementById(`save-${id}`);
+        
+        contentElement.style.display = 'none';
+        editElement.style.display = 'block';
+        saveButton.style.display = 'block';
+    };
+
+    window.saveEdit = function(id) {
+        const contentElement = document.getElementById(`content-${id}`);
+        const editElement = document.getElementById(`edit-content-${id}`);
+        const saveButton = document.getElementById(`save-${id}`);
+        const newContent = editElement.value;
+
+        updatePost(id, newContent);
+
+        contentElement.innerText = newContent;
+        contentElement.style.display = 'block';
+        editElement.style.display = 'none';
+        saveButton.style.display = 'none';
     };
 
     window.deletePost = deletePost;
 
     displayPosts();
 });
+
+
 
 
 

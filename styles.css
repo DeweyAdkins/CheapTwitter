@@ -88,6 +88,7 @@ body {
     border: 1px solid #e1e8ed;
     display: flex;
     align-items: flex-start;
+    position: relative;
 }
 
 .post img {
@@ -125,8 +126,17 @@ body {
     margin-top: 5px;
 }
 
-.post .post-body a {
-    color: #1da1f2;
+.post .post-body p {
+    display: inline-block;
+}
+
+.post .post-body .edit-textarea {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    resize: none;
 }
 
 .post .post-footer {
@@ -197,6 +207,8 @@ button:hover {
     background-color: #386FD5;
     border-color: #386FD5;
 }
+
+
 
 
 
