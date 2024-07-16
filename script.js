@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const posts = getPosts();
         const newPost = {
             id: Date.now().toString(),
+            username: 'Brie',
+            handle: '@Skitch_ComedyFan',
+            timestamp: '3m',
             content,
+            profileImage: 'https://via.placeholder.com/50'
         };
         posts.push(newPost);
         savePosts(posts);
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const posts = getPosts();
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
-            posts[postIndex] = { id, content };
+            posts[postIndex].content = content;
             savePosts(posts);
         }
     }
@@ -59,10 +63,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const posts = getPosts();
         postsContainer.innerHTML = posts.map(post => `
             <div class="post">
-                <p>${post.content}</p>
-                <div class="actions">
-                    <button class="edit btn btn-info btn-sm" onclick="editPost('${post.id}')">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="deletePost('${post.id}')">Delete</button>
+                <img src="${post.profileImage}" alt="Profile Image">
+                <div class="post-content">
+                    <div class="post-header">
+                        <div>
+                            <span class="username">${post.username}</span>
+                            <span class="handle">${post.handle}</span>
+                            <span class="timestamp">${post.timestamp}</span>
+                        </div>
+                        <div class="actions">
+                            <button class="edit btn btn-info btn-sm" onclick="editPost('${post.id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deletePost('${post.id}')">Delete</button>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <p>${post.content}</p>
+                    </div>
+                    <div class="post-footer">
+                        <i class="far fa-comment"></i>
+                        <i class="fas fa-retweet"></i>
+                        <i class="far fa-heart"></i>
+                        <i class="fas fa-share"></i>
+                    </div>
                 </div>
             </div>
         `).join('');

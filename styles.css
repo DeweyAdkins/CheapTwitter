@@ -12,7 +12,7 @@ body {
     top: 0;
     width: 25%;
     padding-top: 20px;
-    background-color: #15202b;
+    background-color: #161D64;
 }
 
 .sidebar h1 {
@@ -20,6 +20,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #54f3fc;
 }
 
 .nav-link {
@@ -50,11 +51,29 @@ body {
     height: 100vh;
     overflow-y: auto;
     padding-top: 70px;
+    background-color: #232582;
 }
 
 .tweet-box {
     margin-bottom: 20px;
     border: 1px solid #e1e8ed;
+}
+
+.tweet-options {
+    border-top: 1px solid #e1e8ed;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.tweet-options i {
+    font-size: 1.2em;
+    color: #1da1f2;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.tweet-options i:hover {
+    color: #0DA7F2;
 }
 
 .posts {
@@ -67,34 +86,58 @@ body {
     margin-bottom: 15px;
     border-radius: 10px;
     border: 1px solid #e1e8ed;
+    display: flex;
+    align-items: flex-start;
 }
 
-.post p {
-    margin: 0;
-    font-size: 1.2em;
+.post img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
-.post .actions {
+.post .post-content {
+    flex: 1;
+}
+
+.post .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post .post-header .username {
+    font-weight: bold;
+    color: #161D64;
+}
+
+.post .post-header .handle {
+    color: #657786;
+}
+
+.post .post-header .timestamp {
+    color: #657786;
+    font-size: 0.9em;
+}
+
+.post .post-body {
+    margin-top: 5px;
+}
+
+.post .post-body a {
+    color: #1da1f2;
+}
+
+.post .post-footer {
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
-    text-align: right;
+    color: #657786;
 }
 
-.post .actions button {
-    background-color: #e0245e;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 10px;
+.post .post-footer i {
     cursor: pointer;
-}
-
-.post .actions button.edit {
-    background-color: #1da1f2;
-    margin-right: 5px;
-}
-
-.post .actions button:hover {
-    opacity: 0.8;
 }
 
 .trends-list .list-group-item {
@@ -129,6 +172,30 @@ body {
 
 .list-group-item button {
     margin-left: auto;
+}
+
+h5 {
+    color: #386FD5;
+}
+
+button {
+    background-color: #54f3fc;
+    border: none;
+}
+
+button:hover {
+    background-color: #33B9C9;
+}
+
+.btn-outline-primary {
+    color: #386FD5;
+    border-color: #386FD5;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #386FD5;
+    border-color: #386FD5;
 }
 
 

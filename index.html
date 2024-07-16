@@ -11,7 +11,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-3 sidebar bg-primary text-white p-4">
+            <nav class="col-md-3 sidebar text-white p-4">
                 <h1 class="mb-4"><i class="fab fa-twitter"></i> Fake Twitter</h1>
                 <ul class="nav flex-column">
                     <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li>
@@ -32,9 +32,14 @@
                         <div class="form-group">
                             <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary float-right">Tweet</button>
+                        <div class="tweet-options d-flex align-items-center">
+                            <i class="far fa-image"></i>
+                            <i class="far fa-file-alt"></i>
+                            <i class="fas fa-poll"></i>
+                            <i class="far fa-smile"></i>
+                            <button type="submit" class="btn btn-primary ml-auto">Tweet</button>
+                        </div>
                     </form>
-                    <div class="clearfix"></div>
                 </div>
                 <div class="posts" id="posts"></div>
             </div>
@@ -108,6 +113,8 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 
