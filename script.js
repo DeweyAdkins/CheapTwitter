@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const postIdInput = document.getElementById('postId');
     const contentInput = document.getElementById('content');
+    const imageUpload = document.getElementById('imageUpload');
     const postsContainer = document.getElementById('posts');
 
     postForm.addEventListener('submit', function(e) {
@@ -9,11 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const postId = postIdInput.value;
         const content = contentInput.value;
+        const image = imageUpload.files[0];
 
         if (postId) {
-            updatePost(postId, content);
+            updatePost(postId, content, image);
         } else {
-            createPost(content);
+            createPost(content, image);
         }
 
         postForm.reset();
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayPosts();
     });
 
-    function createPost(content) {
+    function createPost(content, image) {
         const posts = getPosts();
         const newPost = {
             id: Date.now().toString(),
@@ -29,17 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
             handle: '@Skitch_ComedyFan',
             timestamp: '3m',
             content,
+            image: image ? URL.createObjectURL(image) : '',
             profileImage: 'https://via.placeholder.com/50'
         };
         posts.push(newPost);
         savePosts(posts);
     }
 
-    function updatePost(id, content) {
+    function updatePost(id, content, image) {
         const posts = getPosts();
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
             posts[postIndex].content = content;
+            if (image) {
+                posts[postIndex].image = URL.createObjectURL(image);
+            }
             savePosts(posts);
         }
     }
@@ -78,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="post-body">
                         <p id="content-${post.id}">${post.content}</p>
+                        ${post.image ? `<img src="${post.image}" alt="Post Image" class="img-fluid mt-2">` : ''}
                         <textarea class="form-control edit-textarea" id="edit-content-${post.id}" rows="3" style="display:none;">${post.content}</textarea>
                         <button class="btn btn-primary mt-2" id="save-${post.id}" style="display:none;" onclick="saveEdit('${post.id}')">Save</button>
                     </div>
@@ -120,8 +127,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayPosts();
 });
-
-
-
-
-
