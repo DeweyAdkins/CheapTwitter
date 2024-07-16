@@ -33,10 +33,14 @@
                             <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" required></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="file" id="imageUpload" class="form-control-file">
+                            <label for="imageUpload" class="sr-only">Choose Image</label>
+                            <input type="file" id="imageUpload" class="form-control-file d-none">
                         </div>
                         <div class="tweet-options d-flex align-items-center">
-                            <i class="far fa-image"></i>
+                            <label for="imageUpload" class="mb-0">
+                                <i class="far fa-image"></i> 
+                            </label>
+
                             <i class="far fa-file-alt"></i>
                             <i class="fas fa-poll"></i>
                             <i class="far fa-smile"></i>
