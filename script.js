@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePreview = document.getElementById('imagePreview');
     const postsContainer = document.getElementById('posts');
     let uploadedImage = '';
+    let imageRemoved = false;
 
     imageButton.addEventListener('click', () => {
         imageUpload.click();
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (postId) {
-            updatePost(postId, content, uploadedImage);
+            updatePost(postId, content, uploadedImage, imageRemoved);
         } else {
             createPost(content, uploadedImage);
         }
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         postIdInput.value = '';
         imagePreview.innerHTML = '';
         uploadedImage = '';
+        imageRemoved = false;
         displayPosts();
     });
 
@@ -62,12 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
         savePosts(posts);
     }
 
-    function updatePost(id, content, image) {
+    function updatePost(id, content, image, imageRemoved) {
         const posts = getPosts();
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
             posts[postIndex].content = content;
-            posts[postIndex].image = image;
+            if (imageRemoved) {
+                posts[postIndex].image = '';
+            } else {
+                posts[postIndex].image = image;
+            }
             savePosts(posts);
         }
     }
@@ -106,9 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="post-body">
                         <p id="content-${post.id}">${post.content}</p>
-                        ${post.image ? `<img src="${post.image}" alt="Tweet Image" class="img-fluid">` : ''}
+                        ${post.image ? `<img src="${post.image}" alt="Tweet Image" class="img-fluid" id="image-${post.id}">` : ''}
                         <textarea class="form-control edit-textarea" id="edit-content-${post.id}" rows="3" style="display:none;">${post.content}</textarea>
+                        ${post.image ? `<button class="btn btn-warning mt-2" id="remove-image-${post.id}" style="display:none;" onclick="markImageForRemoval('${post.id}')">Remove Photo</button>` : ''}
                         <button class="btn btn-primary mt-2" id="save-${post.id}" style="display:none;" onclick="saveEdit('${post.id}')">Save</button>
+                        <button class="btn btn-secondary mt-2" id="cancel-${post.id}" style="display:none;" onclick="cancelEdit('${post.id}')">Cancel</button>
                     </div>
                     <div class="post-footer">
                         <i class="far fa-comment"></i>
@@ -125,31 +133,82 @@ document.addEventListener('DOMContentLoaded', () => {
         const contentElement = document.getElementById(`content-${id}`);
         const editElement = document.getElementById(`edit-content-${id}`);
         const saveButton = document.getElementById(`save-${id}`);
-        
+        const cancelButton = document.getElementById(`cancel-${id}`);
+        const removeImageButton = document.getElementById(`remove-image-${id}`);
+        const imageElement = document.getElementById(`image-${id}`);
+
         contentElement.style.display = 'none';
         editElement.style.display = 'block';
         saveButton.style.display = 'block';
+        cancelButton.style.display = 'block';
+        if (imageElement) {
+            removeImageButton.style.display = 'block';
+        }
     };
 
     window.saveEdit = function(id) {
         const contentElement = document.getElementById(`content-${id}`);
         const editElement = document.getElementById(`edit-content-${id}`);
         const saveButton = document.getElementById(`save-${id}`);
+        const cancelButton = document.getElementById(`cancel-${id}`);
+        const removeImageButton = document.getElementById(`remove-image-${id}`);
         const newContent = editElement.value;
 
-        updatePost(id, newContent);
+        let imageUrl = '';
+        const imageElement = document.getElementById(`image-${id}`);
+        if (imageElement && !imageRemoved) {
+            imageUrl = imageElement.src;
+        }
+
+        updatePost(id, newContent, imageUrl, imageRemoved);
 
         contentElement.innerText = newContent;
         contentElement.style.display = 'block';
         editElement.style.display = 'none';
         saveButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+        if (imageElement) {
+            if (imageRemoved) {
+                imageElement.style.display = 'none';
+            } else {
+                imageElement.style.display = 'block';
+            }
+            removeImageButton.style.display = 'none';
+        }
+        imageRemoved = false; // Reset the imageRemoved flag
+    };
+
+    window.cancelEdit = function(id) {
+        const contentElement = document.getElementById(`content-${id}`);
+        const editElement = document.getElementById(`edit-content-${id}`);
+        const saveButton = document.getElementById(`save-${id}`);
+        const cancelButton = document.getElementById(`cancel-${id}`);
+        const removeImageButton = document.getElementById(`remove-image-${id}`);
+        const imageElement = document.getElementById(`image-${id}`);
+
+        contentElement.style.display = 'block';
+        editElement.style.display = 'none';
+        saveButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+        if (imageElement) {
+            imageElement.style.display = 'block';
+            removeImageButton.style.display = 'none';
+        }
+        imageRemoved = false; // Reset the imageRemoved flag
+    };
+
+    window.markImageForRemoval = function(id) {
+        imageRemoved = true;
+        const imageElement = document.getElementById(`image-${id}`);
+        if (imageElement) {
+            imageElement.style.display = 'none'; // Hide the image but don't remove it
+        }
+        const removeImageButton = document.getElementById(`remove-image-${id}`);
+        removeImageButton.style.display = 'none';
     };
 
     window.deletePost = deletePost;
 
     displayPosts();
 });
-
-
-
 
