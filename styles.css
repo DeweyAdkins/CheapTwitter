@@ -217,7 +217,6 @@ button:hover {
     border-color: #386FD5;
 }
 
-
 .footer {
     background-color: #161D64;
     color: #ffffff;
@@ -227,7 +226,7 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 2px;
     font-size: 1.2em;
 }
 
@@ -265,10 +264,15 @@ button:hover {
     margin-top: 10px;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    max-width: calc(100% - 10px);
+    overflow: hidden;
+}
 
-
-
-
-
-
-
+.logo-container img {
+    max-width: 70px; 
+    height: auto;
+}
