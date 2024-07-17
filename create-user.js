@@ -1,21 +1,34 @@
-document.getElementById('createUserForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.querySelector('#createUserForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const username = document.querySelector('#newUsername').value;
+    const password = document.querySelector('#newPassword').value;
+    const confirmPassword = document.querySelector('#confirmPassword').value;
 
-    const newUsername = document.getElementById('newUsername').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (newPassword !== confirmPassword) {
-        alert('Passwords do not match.');
+    if (password !== confirmPassword) {
+        document.getElementById('message').textContent = 'Passwords do not match!';
         return;
     }
 
-    // For demo purposes, we simply log the inputs.
-    console.log('New Username:', newUsername);
-    console.log('New Password:', newPassword);
+    try {
+        const response = await fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
 
-    // TODO: Add your user creation logic here
+        const result = await response.json();
+        console.log("Response received");
 
-    // Redirect to login page on successful creation
-    window.location.href = 'indexlog.html';
+        if (response.status === 201) {
+            console.log("Before redirection");
+            window.location.href = 'indexlog.html'; // Redirect to login page
+        } else {
+            document.getElementById('message').textContent = result.error;
+        }
+    } catch (error) {
+        document.getElementById('message').textContent = 'An error occurred. Please try again.';
+    }
+    console.log("End of submit handler");
 });
