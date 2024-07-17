@@ -291,3 +291,43 @@ document.addEventListener('DOMContentLoaded', () => {
     // Select and remove elements with class 'fas fa-share'
     document.querySelectorAll('.fas.fa-share').forEach(element => element.remove());
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('.search-bar input');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+
+    // Filter posts based on search input
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        updateSearchSuggestions(query);
+    });
+
+    function updateSearchSuggestions(query) {
+        if (query.length > 0) {
+            const suggestions = [`#${query}`, `#${query}News`, `#${query}Trend`]; // Example suggestions
+            searchSuggestions.innerHTML = suggestions.map(suggestion => 
+                `<a class="dropdown-item" href="#">${suggestion}</a>`
+            ).join('');
+            searchSuggestions.style.display = 'block';
+        } else {
+            searchSuggestions.style.display = 'none';
+        }
+    }
+
+    // Hide the suggestions when clicking outside
+    window.addEventListener('click', (event) => {
+        if (!event.target.closest('.search-bar')) {
+            searchSuggestions.style.display = 'none';
+        }
+    });
+
+    // Add selected suggestion to search input
+    searchSuggestions.addEventListener('click', (event) => {
+        if (event.target.classList.contains('dropdown-item')) {
+            searchInput.value = event.target.textContent;
+            searchSuggestions.style.display = 'none';
+            // Trigger search again with the selected suggestion
+            searchInput.dispatchEvent(new Event('input'));
+        }
+    });
+});

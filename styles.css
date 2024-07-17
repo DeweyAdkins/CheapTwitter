@@ -99,6 +99,7 @@ body {
 
 .post .post-content {
     flex: 1;
+    padding: 10px; /* Ensures text does not touch the edges */
 }
 
 .post .post-header {
@@ -129,6 +130,8 @@ body {
 
 .post .post-body p {
     margin-bottom: 10px;
+    word-wrap: break-word; /* Ensures long words wrap to the next line */
+    word-break: break-word; /* Ensures long words break and wrap to the next line */
 }
 
 .post .post-body .edit-textarea {
@@ -138,6 +141,14 @@ body {
     padding: 10px;
     font-size: 1em;
     resize: none;
+}
+
+.post .post-body img {
+    max-width: 100%; /* Ensures the image does not exceed the width of its container */
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: block; /* Ensures the image is displayed as a block-level element */
 }
 
 .post .post-footer {
@@ -193,6 +204,46 @@ body {
     border-radius: 30px;
     padding: 10px 20px;
     border: 1px solid #e1e8ed;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
 }
 
 h5 {
@@ -278,49 +329,3 @@ button:hover {
     max-width: 70px; 
     height: auto;
 }
-
-/* Tags Popup */
-.tags-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.tags-popup-content {
-    position: relative; 
-    text-align: center;
-}
-
-.tags-popup-content h5 {
-    margin-bottom: 10px;
-}
-
-.tags-popup-content .form-control {
-    margin-bottom: 10px;
-}
-
-/* Close Button */
-.close-button {
-    position: absolute;
-    top: -10px; 
-    right: -10px; 
-    font-size: 20px;
-    font-weight: bold;
-    color: red;
-    cursor: pointer;
-}
-
-.close-button:hover {
-    color: darkred;
-}
-
-
-
-
-
