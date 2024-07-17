@@ -10,6 +10,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // TODO: Add your authentication logic here
 
+    // Set loggedIn flag in localStorage
+    localStorage.setItem('loggedIn', 'true');
+
     // Redirect to main page on successful login
     window.location.href = 'index.html';
 });
