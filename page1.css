@@ -66,7 +66,7 @@
 }
 
 .landing-content button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #ffffff33;
 }
 
 .launch-time {
@@ -90,7 +90,7 @@
 }
 
 .rocket {
-    position:absolute;
+    position: absolute;
     right: 20%;
     bottom: 0;
     animation: rocket 4s linear infinite;
