@@ -1,18 +1,24 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.querySelector('#loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
 
-    // For demo purposes, we simply log the inputs.
-    console.log('Username:', username);
-    console.log('Password:', password);
-
-    // TODO: Add your authentication logic here
-
-    // Set loggedIn flag in localStorage
-    localStorage.setItem('loggedIn', 'true');
-
-    // Redirect to main page on successful login
-    window.location.href = 'index.html';
+        const result = await response.json();
+        if (response.status === 200) {
+            window.location.href = 'index.html'; 
+        } else {
+            document.getElementById('message').textContent = result.error;
+        }
+    } catch (error) {
+        document.getElementById('message').textContent = 'An error occurred. Please try again.';
+    }
 });
