@@ -287,3 +287,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+//Delete Retweet & Share Icons 
+document.addEventListener('DOMContentLoaded', () => {
+    // Select and remove elements with class 'fas fa-retweet'
+    document.querySelectorAll('.fas.fa-retweet').forEach(element => element.remove());
+
+    // Select and remove elements with class 'fas fa-share'
+    document.querySelectorAll('.fas.fa-share').forEach(element => element.remove());
+});
+
+
