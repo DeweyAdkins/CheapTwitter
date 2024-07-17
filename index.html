@@ -34,9 +34,12 @@
                             <div id="imagePreview" class="mt-2 position-absolute"></div>
                             <small id="charCount" class="text-muted">0/280</small>
                         </div>
+                        
+                        <!-- Add Hashtag Button to the Tweet Options -->
                         <div class="tweet-options d-flex align-items-center">
                             <i class="far fa-image" id="imageButton"></i>
                             <input type="file" id="imageUpload" style="display: none;" accept="image/*">
+                            <i class="fas fa-hashtag" id="hashtagButton"></i> <!-- Hashtag Button -->
                             <button type="submit" class="btn btn-primary ml-auto">Tweet</button>
                         </div>
                     </form>
@@ -107,6 +110,7 @@
                         </div>
                     </li>
                 </ul>
+                
                 <!-- Add Switch User Button -->
                 <button id="switchUser" class="btn btn-secondary mt-4">Switch User</button>
             </div>
