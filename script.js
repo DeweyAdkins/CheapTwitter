@@ -1,3 +1,9 @@
+// Check if user is logged in
+if (!localStorage.getItem('loggedIn')) {
+    window.location.href = 'index.html';
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const postIdInput = document.getElementById('postId');

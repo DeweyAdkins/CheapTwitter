@@ -1,0 +1,25 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Reduced space below the logo */
+}
+
+.login-logo img {
+    margin-right: -60px; /* Reduced margin to bring text closer */
+    width: 250px !important; /* Adjust the width to your desired size */
+    height: auto !important; /* Maintain aspect ratio */
+}
+
+.login-container {
+    text-align: center;
+}
+
+.login-card {
+    border-radius: 15px;
+    width: 20%; /* Adjusted width of the login card */
+    min-width: 300px;
+}
