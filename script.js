@@ -283,11 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-
-
-
-
 //Delete Retweet & Share Icons 
 document.addEventListener('DOMContentLoaded', () => {
     // Select and remove elements with class 'fas fa-retweet'
