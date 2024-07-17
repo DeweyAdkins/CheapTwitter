@@ -296,5 +296,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Select and remove elements with class 'fas fa-share'
     document.querySelectorAll('.fas.fa-share').forEach(element => element.remove());
 });
-
-
