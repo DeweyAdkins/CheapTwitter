@@ -5,6 +5,7 @@ body {
     padding: 0;
 }
 
+/* Sidebar Styles */
 .sidebar {
     height: 100vh;
     position: fixed;
@@ -13,8 +14,10 @@ body {
     width: 25%;
     padding-top: 20px;
     background-color: #161D64;
+    overflow-y: auto;
 }
 
+/* Sidebar Logo */
 .sidebar h1 {
     font-size: 1.5em;
     display: flex;
@@ -23,6 +26,7 @@ body {
     color: #54f3fc;
 }
 
+/* Sidebar Navigation */
 .nav-link {
     font-size: 1.2em;
     display: flex;
@@ -35,6 +39,7 @@ body {
     font-size: 1.5em;
 }
 
+/* Main Content */
 .main-content {
     background-color: #f5f8fa;
     min-height: 100vh;
@@ -43,6 +48,7 @@ body {
     padding-top: 70px;
 }
 
+/* Profile Sidebar */
 .profile-sidebar {
     position: fixed;
     right: 0;
@@ -54,6 +60,7 @@ body {
     background-color: #232582;
 }
 
+/* Tweet Box */
 .tweet-box {
     margin-bottom: 20px;
     border: 1px solid #e1e8ed;
@@ -70,12 +77,14 @@ body {
     color: #1da1f2;
     margin-right: 15px;
     cursor: pointer;
+    transition: color 0.3s;
 }
 
 .tweet-options i:hover {
     color: #0DA7F2;
 }
 
+/* Posts */
 .posts {
     margin-top: 20px;
 }
@@ -149,8 +158,14 @@ body {
 
 .post .post-footer i {
     cursor: pointer;
+    transition: color 0.3s;
 }
 
+.post .post-footer i:hover {
+    color: #1da1f2;
+}
+
+/* Trends List */
 .trends-list .list-group-item {
     display: flex;
     justify-content: space-between;
@@ -185,6 +200,7 @@ body {
     margin-left: auto;
 }
 
+/* Search Bar */
 .search-bar {
     position: relative;
 }
@@ -195,13 +211,16 @@ body {
     border: 1px solid #e1e8ed;
 }
 
+/* Headings */
 h5 {
     color: #386FD5;
 }
 
+/* Buttons */
 button {
     background-color: #54f3fc;
     border: none;
+    transition: background-color 0.3s;
 }
 
 button:hover {
@@ -211,6 +230,7 @@ button:hover {
 .btn-outline-primary {
     color: #386FD5;
     border-color: #386FD5;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .btn-outline-primary:hover {
@@ -219,6 +239,7 @@ button:hover {
     border-color: #386FD5;
 }
 
+/* Footer */
 .footer {
     background-color: #161D64;
     color: #ffffff;
@@ -232,10 +253,12 @@ button:hover {
     font-size: 1.2em;
 }
 
+/* Form Group */
 .form-group {
     position: relative;
 }
 
+/* Image Preview */
 #imagePreview {
     position: absolute;
     top: 10px;
@@ -252,6 +275,7 @@ button:hover {
     border-radius: 10px;
 }
 
+/* Responsive Images */
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -266,6 +290,7 @@ button:hover {
     margin-top: 10px;
 }
 
+/* Logo Container */
 .logo-container {
     display: flex;
     align-items: center;
@@ -278,4 +303,86 @@ button:hover {
     max-width: 70px; 
     height: auto;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .sidebar, .profile-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Tags Popup */
+.tags-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.tags-popup-content {
+    text-align: center;
+}
+
+.tags-popup-content h5 {
+    margin-bottom: 10px;
+}
+
+.tags-popup-content .form-control {
+    margin-bottom: 10px;
+}
+
+/* Tags Popup */
+.tags-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.tags-popup-content {
+    position: relative;
+    text-align: center;
+}
+
+.tags-popup-content h5 {
+    margin-bottom: 10px;
+}
+
+.tags-popup-content .form-control {
+    margin-bottom: 10px;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: darkred;
+}
+
+
 
