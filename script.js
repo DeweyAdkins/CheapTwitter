@@ -1,5 +1,5 @@
 // Check if user is logged in
-if (!localStorage.getItem('loggedIn') &&  window.location.href !== 'indexlog.html') {
+if (!localStorage.getItem('loggedIn') && window.location.pathname !== '/indexlog.html') {
     window.location.href = 'indexlog.html';
 }
 
@@ -15,11 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let uploadedImage = '';
     let imageRemoved = false;
 
-    const hashtagButton = document.getElementById('hashtagButton');
-    const tagsPopup = document.getElementById('tagsPopup');
-    const addTagsButton = document.getElementById('addTagsButton');
-    const tagsInput = document.getElementById('tagsInput');
-    const closeTagsPopup = document.getElementById('closeTagsPopup');
+    document.getElementById('switchUser').addEventListener('click', switchUser);
+
+    function switchUser() {
+        localStorage.removeItem('loggedIn');
+        window.location.href = 'indexlog.html';
+    }
 
     contentInput.addEventListener('input', () => {
         charCount.textContent = `${contentInput.value.length}/280`;
@@ -31,15 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     imageUpload.addEventListener('change', function () {
         const file = this.files[0];
-        if (file && file.type.startsWith('image/')) {
+        if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
                 uploadedImage = e.target.result;
                 imagePreview.innerHTML = `<img src="${uploadedImage}" alt="Image Preview">`;
             };
             reader.readAsDataURL(file);
-        } else {
-            alert('Please upload a valid image file.');
         }
     });
 
@@ -55,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!content && !uploadedImage) {
-            alert('Tweet content cannot be empty.');
-            return;
+            return; // Prevent posting empty tweets
         }
 
         if (postId) {
@@ -94,7 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
             posts[postIndex].content = content;
-            posts[postIndex].image = imageRemoved ? '' : image;
+            if (imageRemoved) {
+                posts[postIndex].image = '';
+            } else {
+                posts[postIndex].image = image;
+            }
             savePosts(posts);
         }
     }
@@ -243,32 +245,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deletePost = deletePost;
 
     displayPosts();
-
-    // Show the popup when the hashtag button is clicked
-    hashtagButton.addEventListener('click', () => {
-        tagsPopup.style.display = 'block';
-    });
-
-    // Hide the popup and clear the input when the add tags button is clicked
-    addTagsButton.addEventListener('click', () => {
-        const tags = tagsInput.value.split(',').map(tag => tag.trim());
-        // Here you can handle the tags (e.g., add them to the post, etc.)
-        console.log('Tags:', tags);
-        tagsPopup.style.display = 'none';
-        tagsInput.value = '';
-    });
-
-    // Close the popup when the close button is clicked
-    closeTagsPopup.addEventListener('click', () => {
-        tagsPopup.style.display = 'none';
-    });
-
-    // Close the popup when clicking outside of it
-    window.addEventListener('click', (event) => {
-        if (event.target === tagsPopup) {
-            tagsPopup.style.display = 'none';
-        }
-    });
 });
-
-

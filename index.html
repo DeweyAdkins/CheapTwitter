@@ -18,11 +18,11 @@
                     <span>Anomalous X</span>
                 </h1>
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li>
                 </ul>
             </nav>
             <div class="col-md-6 main-content p-4">
@@ -36,7 +36,6 @@
                         </div>
                         <div class="tweet-options d-flex align-items-center">
                             <i class="far fa-image" id="imageButton"></i>
-                            <i class="fas fa-hashtag" id="hashtagButton"></i>
                             <input type="file" id="imageUpload" style="display: none;" accept="image/*">
                             <button type="submit" class="btn btn-primary ml-auto">Tweet</button>
                         </div>
@@ -108,20 +107,11 @@
                         </div>
                     </li>
                 </ul>
+                <!-- Add Switch User Button -->
+                <button id="switchUser" class="btn btn-secondary mt-4">Switch User</button>
             </div>
         </div>
     </div>
-
-    <!-- Tags Popup -->
-    <div id="tagsPopup" class="tags-popup" style="display: none;">
-        <div class="tags-popup-content">
-            <span class="close-button" id="closeTagsPopup">&times;</span>
-            <h5>Add Tags</h5>
-            <input type="text" id="tagsInput" class="form-control" placeholder="Enter tags separated by commas">
-            <button class="btn btn-primary mt-2" id="addTagsButton">Add Tags</button>
-        </div>
-    </div>
-
     <footer class="footer bg-primary text-white text-center py-3">
         <div class="container">
             <span class="footer-text logo-container">
@@ -136,7 +126,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
