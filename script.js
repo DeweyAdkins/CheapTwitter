@@ -1,8 +1,3 @@
-// Check if user is logged in
-if (!localStorage.getItem('loggedIn') &&  window.location.href !== 'indexlog.html') {
-    window.location.href = 'indexlog.html';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const postIdInput = document.getElementById('postId');
@@ -12,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePreview = document.getElementById('imagePreview');
     const postsContainer = document.getElementById('posts');
     const charCount = document.getElementById('charCount');
+    const searchInput = document.querySelector('.search-bar input');
     let uploadedImage = '';
     let imageRemoved = false;
 
@@ -114,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('posts', JSON.stringify(posts));
     }
 
-    function displayPosts() {
-        const posts = getPosts();
+    function displayPosts(filteredPosts = null) {
+        const posts = filteredPosts || getPosts();
         postsContainer.innerHTML = posts.reverse().map(post => `
             <div class="post" id="post-${post.id}">
                 <img src="${post.profileImage}" alt="Profile Image">
@@ -252,8 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hide the popup and clear the input when the add tags button is clicked
     addTagsButton.addEventListener('click', () => {
         const tags = tagsInput.value.split(',').map(tag => tag.trim());
-        // Here you can handle the tags (e.g., add them to the post, etc.)
-        console.log('Tags:', tags);
+        if (tags.length > 0) {
+            contentInput.value += ' ' + tags.map(tag => `#${tag}`).join(' ');
+            charCount.textContent = `${contentInput.value.length}/280`;
+        }
         tagsPopup.style.display = 'none';
         tagsInput.value = '';
     });
@@ -269,6 +267,21 @@ document.addEventListener('DOMContentLoaded', () => {
             tagsPopup.style.display = 'none';
         }
     });
+
+    // Filter posts based on search input
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        const posts = getPosts();
+        const filteredPosts = posts.filter(post => 
+            post.content.toLowerCase().includes(query) || 
+            post.username.toLowerCase().includes(query) || 
+            post.handle.toLowerCase().includes(query)
+        );
+        displayPosts(filteredPosts);
+    });
 });
+
+
+
 
 
