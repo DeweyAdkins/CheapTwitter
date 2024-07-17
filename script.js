@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePreview = document.getElementById('imagePreview');
     const postsContainer = document.getElementById('posts');
     const charCount = document.getElementById('charCount');
+    const searchInput = document.querySelector('.search-bar input');
     let uploadedImage = '';
     let imageRemoved = false;
 
@@ -116,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('posts', JSON.stringify(posts));
     }
 
-    function displayPosts() {
-        const posts = getPosts();
+    function displayPosts(filteredPosts = null) {
+        const posts = filteredPosts || getPosts();
         postsContainer.innerHTML = posts.reverse().map(post => `
             <div class="post" id="post-${post.id}">
                 <img src="${post.profileImage}" alt="Profile Image">
@@ -245,4 +246,49 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deletePost = deletePost;
 
     displayPosts();
+
+    // Show the popup when the hashtag button is clicked
+    hashtagButton.addEventListener('click', () => {
+        tagsPopup.style.display = 'block';
+    });
+
+    // Hide the popup and clear the input when the add tags button is clicked
+    addTagsButton.addEventListener('click', () => {
+        const tags = tagsInput.value.split(',').map(tag => tag.trim());
+        if (tags.length > 0) {
+            contentInput.value += ' ' + tags.map(tag => `#${tag}`).join(' ');
+            charCount.textContent = `${contentInput.value.length}/280`;
+        }
+        tagsPopup.style.display = 'none';
+        tagsInput.value = '';
+    });
+
+    // Close the popup when the close button is clicked
+    closeTagsPopup.addEventListener('click', () => {
+        tagsPopup.style.display = 'none';
+    });
+
+    // Close the popup when clicking outside of it
+    window.addEventListener('click', (event) => {
+        if (event.target === tagsPopup) {
+            tagsPopup.style.display = 'none';
+        }
+    });
+
+    // Filter posts based on search input
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        const posts = getPosts();
+        const filteredPosts = posts.filter(post => 
+            post.content.toLowerCase().includes(query) || 
+            post.username.toLowerCase().includes(query) || 
+            post.handle.toLowerCase().includes(query)
+        );
+        displayPosts(filteredPosts);
+    });
 });
+
+
+
+
+
