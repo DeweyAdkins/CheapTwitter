@@ -122,11 +122,13 @@ body {
 }
 
 .post .post-body {
+    display: flex;
+    flex-direction: column;
     margin-top: 5px;
 }
 
 .post .post-body p {
-    display: inline-block;
+    margin-bottom: 10px;
 }
 
 .post .post-body .edit-textarea {
