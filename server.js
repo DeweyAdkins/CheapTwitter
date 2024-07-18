@@ -17,6 +17,50 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
     }
 });
 
+// Migrate the database schema to add 'handle' column if it doesn't exist
+db.serialize(() => {
+    // Check if the 'Users' table already has the 'handle' column
+    db.all("PRAGMA table_info(Users);", (err, rows) => {
+        if (err) {
+            console.error('Error fetching table info:', err.message);
+        } else if (!rows.some(col => col.name === 'handle')) {
+            // Only run migration if 'handle' column does not exist
+            console.log('Migrating database schema...');
+            db.run("CREATE TABLE IF NOT EXISTS UsersTemp (user_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL, handle TEXT NOT NULL)", [], function(err) {
+                if (err) {
+                    console.error('Error creating UsersTemp table:', err.message);
+                    return;
+                }
+
+                db.run("INSERT INTO UsersTemp (user_id, username, password, handle) SELECT user_id, username, password, '@' || username FROM Users", [], function(err) {
+                    if (err) {
+                        console.error('Error inserting into UsersTemp:', err.message);
+                        return;
+                    }
+
+                    db.run("DROP TABLE Users", [], function(err) {
+                        if (err) {
+                            console.error('Error dropping Users table:', err.message);
+                            return;
+                        }
+
+                        db.run("ALTER TABLE UsersTemp RENAME TO Users", [], function(err) {
+                            if (err) {
+                                console.error('Error renaming UsersTemp to Users:', err.message);
+                                return;
+                            }
+
+                            console.log('Database schema migration completed.');
+                        });
+                    });
+                });
+            });
+        } else {
+            console.log('No migration needed. Schema is up to date.');
+        }
+    });
+});
+
 app.use(cors()); // Enable CORS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,6 +78,7 @@ app.use(session({
 app.post('/users', (req, res) => {
     const { username, password } = req.body;
     console.log(`Creating user: ${username}`);
+    const handle = `@${username}`;
 
     db.get('SELECT * FROM Users WHERE username = ?', [username], (err, row) => {
         if (err) {
@@ -43,7 +88,7 @@ app.post('/users', (req, res) => {
             console.log('Username already exists:', username);
             res.status(409).json({ error: 'Username already exists' });
         } else {
-            db.run('INSERT INTO Users (username, password) VALUES (?, ?)', [username, password], function (err) {
+            db.run('INSERT INTO Users (username, password, handle) VALUES (?, ?, ?)', [username, password, handle], function (err) {
                 if (err) {
                     console.error(err.message);
                     res.status(500).json({ error: 'Internal Server Error' });
@@ -69,9 +114,9 @@ app.post('/login', (req, res) => {
             res.status(401).json({ error: 'Invalid username or password' });
         } else {
             // Save user information in the session
-            req.session.user = { id: row.user_id, username: row.username };
+            req.session.user = { id: row.user_id, username: row.username, handle: row.handle };
             console.log('Login successful for user:', username);
-            res.status(200).json({ message: 'Login successful', user_id: row.user_id });
+            res.status(200).json({ message: 'Login successful', user: req.session.user });
         }
     });
 });
@@ -86,8 +131,13 @@ function isAuthenticated(req, res, next) {
 }
 
 // Apply isAuthenticated middleware to protected routes
-app.get('/indexlog.html', isAuthenticated, (req, res) => {
+app.get('/index.html', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Route to get user info
+app.get('/user-info', isAuthenticated, (req, res) => {
+    res.json(req.session.user);
 });
 
 app.listen(port, () => {
