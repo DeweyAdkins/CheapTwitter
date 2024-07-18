@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname)));
 
 // Set up sessions
 app.use(session({
-    secret: 'your-secret-key', // Change this to a random string
+    secret: 'k', // Simple key for internal project
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Set to true if using https
@@ -86,7 +86,9 @@ function isAuthenticated(req, res, next) {
 }
 
 // Apply isAuthenticated middleware to protected routes
-app.use('/main.html', isAuthenticated);
+app.get('/indexlog.html', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
