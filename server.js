@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const session = require('express-session');
 
 const app = express();
 const port = 3000;
@@ -21,15 +22,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
+// Set up sessions
+app.use(session({
+    secret: 'your-secret-key', // Change this to a random string
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using https
+}));
+
 // Users routes
 app.post('/users', (req, res) => {
     const { username, password } = req.body;
+    console.log(`Creating user: ${username}`);
 
     db.get('SELECT * FROM Users WHERE username = ?', [username], (err, row) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
         } else if (row) {
+            console.log('Username already exists:', username);
             res.status(409).json({ error: 'Username already exists' });
         } else {
             db.run('INSERT INTO Users (username, password) VALUES (?, ?)', [username, password], function (err) {
@@ -37,6 +48,7 @@ app.post('/users', (req, res) => {
                     console.error(err.message);
                     res.status(500).json({ error: 'Internal Server Error' });
                 } else {
+                    console.log('User created successfully:', username);
                     res.status(201).json({ user_id: this.lastID, message: 'User created successfully' });
                 }
             });
@@ -46,114 +58,35 @@ app.post('/users', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    console.log(`Attempting login for user: ${username}`);
 
     db.get('SELECT * FROM Users WHERE username = ? AND password = ?', [username, password], (err, row) => {
         if (err) {
             console.error(err.message);
             res.status(500).json({ error: 'Internal Server Error' });
         } else if (!row) {
+            console.log('Invalid username or password for user:', username);
             res.status(401).json({ error: 'Invalid username or password' });
         } else {
+            // Save user information in the session
+            req.session.user = { id: row.user_id, username: row.username };
+            console.log('Login successful for user:', username);
             res.status(200).json({ message: 'Login successful', user_id: row.user_id });
         }
     });
 });
 
-app.get('/users/:id', (req, res) => {
-    const user_id = req.params.id;
-    db.get('SELECT * FROM Users WHERE user_id = ?', [user_id], (err, row) => {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (!row) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.json(row);
-        }
-    });
-});
+// Middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('indexlog.html'); // Redirect to login page if not authenticated
+    }
+}
 
-app.delete('/users/:id', (req, res) => {
-    const user_id = req.params.id;
-    db.run('DELETE FROM Users WHERE user_id = ?', [user_id], function (err) {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (this.changes === 0) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.status(200).json({ message: 'User deleted successfully' });
-        }
-    });
-});
-
-// Posts routes
-app.post('/posts', (req, res) => {
-    const { user_id, content } = req.body;
-    db.run('INSERT INTO Posts (user_id, content) VALUES (?, ?)', [user_id, content], function (err) {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-            res.status(201).json({ post_id: this.lastID, message: 'Post created successfully' });
-        }
-    });
-});
-
-app.get('/posts/:id', (req, res) => {
-    const post_id = req.params.id;
-    db.get('SELECT * FROM Posts WHERE post_id = ?', [post_id], (err, row) => {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (!row) {
-            res.status(404).json({ error: 'Post not found' });
-        } else {
-            res.json(row);
-        }
-    });
-});
-
-app.get('/users/:user_id/posts/:post_id', (req, res) => {
-    const { user_id, post_id } = req.params;
-    db.get('SELECT * FROM Posts WHERE user_id = ? AND post_id = ?', [user_id, post_id], (err, row) => {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (!row) {
-            res.status(404).json({ error: 'Post not found' });
-        } else {
-            res.json(row);
-        }
-    });
-});
-
-// Photos routes
-app.post('/photos', (req, res) => {
-    const { user_id, photo_url } = req.body;
-    db.run('INSERT INTO Photos (user_id, photo_url) VALUES (?, ?)', [user_id, photo_url], function (err) {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-            res.status(201).json({ photo_id: this.lastID, message: 'Photo uploaded successfully' });
-        }
-    });
-});
-
-app.get('/photos/:id', (req, res) => {
-    const photo_id = req.params.id;
-    db.get('SELECT * FROM Photos WHERE photo_id = ?', [photo_id], (err, row) => {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (!row) {
-            res.status(404).json({ error: 'Photo not found' });
-        } else {
-            res.json(row);
-        }
-    });
-});
+// Apply isAuthenticated middleware to protected routes
+app.use('/main.html', isAuthenticated);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
