@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const newPost = {
             id: Date.now().toString(),
-            username: 'Brie',
-            handle: '@Skitch_ComedyFan',
+            username: 'Web Ghost',
+            handle: '@',
             timestamp: now.toISOString(),
             content,
             image,
