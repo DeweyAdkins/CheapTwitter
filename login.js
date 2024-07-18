@@ -13,12 +13,15 @@ document.querySelector('#loginForm').addEventListener('submit', async function (
         });
 
         const result = await response.json();
+        const messageElement = document.getElementById('message');
         if (response.status === 200) {
-            window.location.href = 'index.html'; 
+            messageElement.textContent = result.message;
+            window.location.href = 'index.html'; // Redirect to the main page immediately
         } else {
-            document.getElementById('message').textContent = result.error;
+            messageElement.textContent = result.error;
         }
     } catch (error) {
-        document.getElementById('message').textContent = 'An error occurred. Please try again.';
+        const messageElement = document.getElementById('message');
+        messageElement.textContent = 'An error occurred. Please try again.';
     }
 });
