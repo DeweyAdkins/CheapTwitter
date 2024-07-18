@@ -357,3 +357,53 @@ button:hover {
     color: darkred;
 }
 
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 1200px) {
+    .sidebar, .profile-sidebar {
+        width: 20%;
+    }
+
+    .main-content {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .sidebar, .profile-sidebar {
+        width: 25%;
+    }
+
+    .main-content {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar, .profile-sidebar {
+        width: 30%;
+    }
+
+    .main-content {
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar, .profile-sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+
+
+
