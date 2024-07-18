@@ -358,6 +358,7 @@ button:hover {
 }
 
 .comment-box {
+    display: flex;
     margin-top: 10px;
 }
 
@@ -394,5 +395,7 @@ button:hover {
 
 .comment-box {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
