@@ -1,6 +1,7 @@
 document.querySelector('#createUserForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const username = document.querySelector('#newUsername').value;
+    const athandle = document.querySelector('#newAt').value;
     const password = document.querySelector('#newPassword').value;
     const confirmPassword = document.querySelector('#confirmPassword').value;
 
@@ -15,7 +16,7 @@ document.querySelector('#createUserForm').addEventListener('submit', async funct
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, athandle, password })
         });
 
         const result = await response.json();
