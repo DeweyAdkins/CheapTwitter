@@ -10,48 +10,48 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-3 sidebar text-white p-4">
-                <h1 class="mb-4 logo-container">
-                    <img src="images/AX.png" alt="Anomalous X Logo">
-                    <span>Anomalous X</span>
+    <div class="container-fluid"> <!-- Full-width container -->
+        <div class="row"> <!-- Bootstrap row for layout -->
+            <nav class="col-md-3 sidebar text-white p-4"> <!-- Sidebar navigation, taking up 3 columns -->
+                <h1 class="mb-4 logo-container"> <!-- Logo container -->
+                    <img src="images/AX.png" alt="Anomalous X Logo"> <!-- Logo image -->
+                    <span>Anomalous X</span> <!-- Website name -->
                 </h1>
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li>
+                <ul class="nav flex-column"> <!-- Vertical navigation list -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li> <!-- Home link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li> <!-- Explore link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li> <!-- Notifications link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li> <!-- Messages link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li> <!-- Profile link -->
                 </ul>
             </nav>
-            <div class="col-md-6 main-content p-4">
-                <div class="tweet-box mb-4 p-3 bg-white rounded shadow-sm position-relative">
-                    <form id="postForm">
-                        <input type="hidden" id="postId">
-                        <div class="form-group position-relative">
-                            <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" maxlength="280"></textarea>
-                            <div id="imagePreview" class="mt-2 position-absolute"></div>
-                            <small id="charCount" class="text-muted">0/280</small>
+            <div class="col-md-6 main-content p-4"> <!-- Main content area, taking up 6 columns -->
+                <div class="tweet-box mb-4 p-3 bg-white rounded shadow-sm position-relative"> <!-- Tweet input box -->
+                    <form id="postForm"> <!-- Form for posting tweets -->
+                        <input type="hidden" id="postId"> <!-- Hidden input for post ID -->
+                        <div class="form-group position-relative"> <!-- Form group for tweet content -->
+                            <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" maxlength="280"></textarea> <!-- Textarea for tweet content -->
+                            <div id="imagePreview" class="mt-2 position-absolute"></div> <!-- Image preview area -->
+                            <small id="charCount" class="text-muted">0/280</small> <!-- Character count display -->
                         </div>
                         
-                        <!-- Add Hashtag Button to the Tweet Options -->
+                        <!-- Tweet options including image upload and hashtag button -->
                         <div class="tweet-options d-flex align-items-center">
-                            <i class="far fa-image" id="imageButton"></i>
-                            <input type="file" id="imageUpload" style="display: none;" accept="image/*">
+                            <i class="far fa-image" id="imageButton"></i> <!-- Image upload button -->
+                            <input type="file" id="imageUpload" style="display: none;" accept="image/*"> <!-- Hidden file input for image upload -->
                             <i class="fas fa-hashtag" id="hashtagButton"></i> <!-- Hashtag Button -->
-                            <button type="submit" class="btn btn-primary ml-auto">Tweet</button>
+                            <button type="submit" class="btn btn-primary ml-auto">Tweet</button> <!-- Submit button for posting tweet -->
                         </div>
                     </form>
                 </div>
-                <div class="posts" id="posts"></div>
-            <div class="col-md-3 profile-sidebar bg-light p-4">
-                <div class="search-bar mb-4 position-relative">
-                    <input type="text" class="form-control" placeholder="Search Anomalous X">
-                    <div id="searchSuggestions" class="dropdown-menu"></div>
+                <div class="posts" id="posts"></div> <!-- Container for displaying posts -->
+            <div class="col-md-3 profile-sidebar bg-light p-4"> <!-- Profile sidebar, taking up 3 columns -->
+                <div class="search-bar mb-4 position-relative"> <!-- Search bar -->
+                    <input type="text" class="form-control" placeholder="Search Anomalous X"> <!-- Search input -->
+                    <div id="searchSuggestions" class="dropdown-menu"></div> <!-- Dropdown for search suggestions -->
                 </div>
-                <h5 class="font-weight-bold">Trends For You <i class="fas fa-cog"></i></h5>
-                <ul class="list-group list-group-flush trends-list">
+                <h5 class="font-weight-bold">Trends For You <i class="fas fa-cog"></i></h5> <!-- Trends section header -->
+                <ul class="list-group list-group-flush trends-list"> <!-- List of trends -->
                     <li class="list-group-item">
                         <div>
                             <small>Trending Worldwide</small>
@@ -59,7 +59,7 @@
                             <p>Lunar photography improves the discovery of the moon</p>
                             <small>10,094 people are Tweeting about this</small>
                         </div>
-                        <img src="images/full-moon.png" class="trend-img">
+                        <img src="images/full-moon.png" class="trend-img"> <!-- Trend image -->
                     </li>
                     <li class="list-group-item">
                         <div>
@@ -87,31 +87,32 @@
                         </div>
                     </li>
                 </ul>
+                 <!-- Section for suggested users to follow -->
                 <h5 class="font-weight-bold mt-4">Who To Follow</h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="d-flex align-items-center">
-                            <img src="images/game-control.png" class="rounded-circle mr-2">
+                            <img src="images/game-control.png" class="rounded-circle mr-2"> <!-- User profile image -->
                             <div>
                                 <strong>Dewey Adkins</strong><br>
                                 @dewmeister
                             </div>
-                            <button class="btn btn-outline-primary btn-sm ml-auto">Follow</button>
+                            <button class="btn btn-outline-primary btn-sm ml-auto">Follow</button> <!-- Follow button -->
                         </div>
                     </li>
                     <li class="list-group-item">
                         <div class="d-flex align-items-center">
-                            <img src="images/astronaut.png" class="rounded-circle mr-2">
+                            <img src="images/astronaut.png" class="rounded-circle mr-2"> <!-- User profile image -->
                             <div>
                                 <strong>Gabbi Erazo</strong><br>
                                 @gabatron
                             </div>
-                            <button class="btn btn-outline-primary btn-sm ml-auto">Follow</button>
+                            <button class="btn btn-outline-primary btn-sm ml-auto">Follow</button> <!-- Follow button -->
                         </div>
                     </li>
                 </ul>
                 
-                <!-- Add Switch User Button -->
+                <!-- Button to switch user -->
                 <button id="switchUser" class="btn btn-secondary mt-4">Switch User</button>
             </div>
         </div>
@@ -120,24 +121,28 @@
     <!-- Tags Popup -->
     <div id="tagsPopup" class="tags-popup" style="display: none;">
         <div class="tags-popup-content">
-            <span class="close-button" id="closeTagsPopup">&times;</span>
+            <span class="close-button" id="closeTagsPopup">&times;</span> <!-- Close button -->
             <h5>Add Tags</h5>
-            <input type="text" id="tagsInput" class="form-control" placeholder="Enter tags">
-            <button class="btn btn-primary mt-2" id="addTagsButton">Add Tags</button>
+            <input type="text" id="tagsInput" class="form-control" placeholder="Enter tags"> <!-- Input for tags -->
+            <button class="btn btn-primary mt-2" id="addTagsButton">Add Tags</button> <!-- Button to add tags -->
         </div>
     </div>
-
+    <!-- Footer section -->
     <footer class="footer bg-primary text-white text-center py-3">
         <div class="container">
             <span class="footer-text logo-container">
-                <img src="images/AX.png" alt="Anomalous X Logo">
+                <img src="images/AX.png" alt="Anomalous X Logo"> <!-- Footer logo -->
                 <span>Anomalous X</span>
             </span>
         </div>
     </footer>
+     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <!-- Include Popper.js for Bootstrap tooltips and popovers -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <!-- Include Bootstrap JavaScript library -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link to custom JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>

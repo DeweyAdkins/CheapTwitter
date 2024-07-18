@@ -357,3 +357,18 @@ button:hover {
     color: darkred;
 }
 
+.comment-box {
+    margin-top: 10px;
+}
+
+.comment-box textarea {
+    width: 100%;
+    border-radius: 5px;
+    resize: none;
+}
+
+.comment-box button {
+    margin-top: 5px;
+}
+
+

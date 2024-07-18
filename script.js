@@ -1,3 +1,8 @@
+// Check if user is logged in
+if (!localStorage.getItem('loggedIn') && window.location.pathname !== '/indexlog.html') {
+    window.location.href = 'indexlog.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const postIdInput = document.getElementById('postId');
@@ -72,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const newPost = {
             id: Date.now().toString(),
-            username: 'Brie',
-            handle: '@Skitch_ComedyFan',
+            username: 'Web Ghost',
+            handle: '@',
             timestamp: now.toISOString(),
             content,
             image,
