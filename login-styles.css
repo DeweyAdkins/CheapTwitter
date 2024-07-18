@@ -40,3 +40,160 @@ body {
     min-width: 300px;
     text-align: center;
 }
+
+/* Ensure the content scales nicely on different screen sizes */
+
+/* Small devices (300px and up) */
+@media (min-width: 300px) {
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-card {
+        width: 100%;
+    }
+
+    .login-logo img {
+        width: 80px;
+    }
+
+    .login-logo-text {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* Medium devices (768px and up) */
+@media (min-width: 768px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    .login-card {
+        width: 50%;
+    }
+
+    .login-logo img {
+        width: 100px;
+    }
+
+    .login-logo-text {
+        font-size: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-control {
+        font-size: 1rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+}
+
+/* Large devices (992px and up) */
+@media (min-width: 992px) {
+    .login-container {
+        padding: 40px;
+    }
+
+    .login-card {
+        width: 40%;
+    }
+
+    .login-logo img {
+        width: 120px;
+    }
+
+    .login-logo-text {
+        font-size: 2.5rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .form-control {
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+    }
+}
+
+/* Extra large devices (1200px and up) */
+@media (min-width: 1200px) {
+    .login-container {
+        padding: 60px;
+    }
+
+    .login-card {
+        width: 30%;
+    }
+
+    .login-logo img {
+        width: 140px;
+    }
+
+    .login-logo-text {
+        font-size: 3rem;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .form-control {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        font-size: 1.2rem;
+    }
+}
+
+/* Large screens (1400px and up) */
+@media (min-width: 1400px) {
+    .login-container {
+        padding: 80px;
+    }
+
+    .login-card {
+        width: 25%;
+    }
+
+    .login-logo img {
+        width: 160px;
+    }
+
+    .login-logo-text {
+        font-size: 3.5rem;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .form-control {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        font-size: 1.3rem;
+    }
+}
