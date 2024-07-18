@@ -131,8 +131,8 @@ function isAuthenticated(req, res, next) {
 }
 
 // Apply isAuthenticated middleware to protected routes
-app.get('/index.html', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+app.get('/main.html', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'main.html'));
 });
 
 // Route to get user info
