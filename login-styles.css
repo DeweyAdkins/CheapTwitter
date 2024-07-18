@@ -2,24 +2,41 @@ body {
     background-color: #f8f9fa;
 }
 
+.login-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .login-logo {
     display: flex;
     align-items: center;
-    margin-bottom: 0; /* Reduced space below the logo */
 }
 
 .login-logo img {
-    margin-right: -60px; /* Reduced margin to bring text closer */
-    width: 250px !important; /* Adjust the width to your desired size */
-    height: auto !important; /* Maintain aspect ratio */
+    width: 125px; /* Adjust the size as needed */
+    height: auto;
+    margin-right: -25px; /* Adjusted margin to bring text closer */
+}
+
+.login-logo-text {
+    font-size: 34px;
+    font-weight: bold;
+    color: #000;
+    margin-right: 45px;
 }
 
 .login-container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .login-card {
     border-radius: 15px;
-    width: 20%; /* Adjusted width of the login card */
+    width: 20%;
     min-width: 300px;
+    text-align: center;
 }
