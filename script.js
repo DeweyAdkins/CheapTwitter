@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newPost = {
             id: Date.now().toString(),
             username: 'Web Ghost',
-            handle: '@',
+            handle: '@Web_Ghost',
             timestamp: now.toISOString(),
             content,
             image,
@@ -143,11 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="btn btn-secondary mt-2" id="cancel-${post.id}" style="display:none;" onclick="cancelEdit('${post.id}')">Cancel</button>
                     </div>
                     <div class="post-footer">
-                        <i class="far fa-comment"></i>
-                        <i class="far fa-heart"></i>
+                        <i onclick="commentPosts('${post.id}')" class="far fa-comment"></i>
+                        <i onclick="likePosts('${post.id}')" class="far fa-heart" id="like-icon-${post.id}"></i>
+                        <span id="like-count-${post.id}">${post.likes}</span>
+                    </div>
+                    </div>
+                    <div class="comment-box" id="comment-box-${post.id}" style="display: none;">
+                        <textarea class="form-control" rows="2" placeholder="Write a comment..."></textarea>
+                        <button class="btn btn-primary mt-2" onclick="addComment('${post.id}')">Comment</button>
                     </div>
                 </div>
-            </div>
         `).join('');
     }
 
@@ -242,6 +247,46 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deletePost = deletePost;
+
+
+    // Like post functionality
+    window.likePosts = function(id) {
+        const posts = getPosts();
+        const postIndex = posts.findIndex(post => post.id === id);
+        if (postIndex !== -1) {
+            posts[postIndex].likes += 1;
+            savePosts(posts);
+            const likeCountElement = document.getElementById(`like-count-${id}`);
+            likeCountElement.textContent = posts[postIndex].likes;
+            const likeIconElement = document.getElementById(`like-icon-${id}`);
+            likeIconElement.classList.add('liked'); // Add a class to change the color
+        }
+    };
+
+    // Show comment box
+    window.commentPosts = function(id) {
+        const commentBox = document.getElementById(`comment-box-${id}`);
+        if (commentBox.style.display === 'none') {
+            commentBox.style.display = 'block';
+        } else {
+            commentBox.style.display = 'none';
+        }
+    };
+
+    // Add comment functionality
+    window.addComment = function(id) {
+        const posts = getPosts();
+        const postIndex = posts.findIndex(post => post.id === id);
+        if (postIndex !== -1) {
+            const commentBox = document.getElementById(`comment-box-${id}`);
+            const commentText = commentBox.querySelector('textarea').value.trim();
+            if (commentText) {
+                posts[postIndex].comments.push(commentText);
+                savePosts(posts);
+                displayPosts();
+            }
+        }
+    };
  
     displayPosts();
 
@@ -334,3 +379,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+window.likePosts = function(id) {
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const postIndex = posts.findIndex(post => post.id === id);
+    if (postIndex !== 0) {
+        posts[postIndex].likes += 1;
+        localStorage.setItem('posts', JSON.stringify(posts));
+        document.getElementById(`like-count-${id}`).textContent = posts[postIndex].likes;
+        document.getElementById(`like-icon-${id}`).style.color = 'red'; // Change color to red when liked
+    }
+};
+
+window.addComment = function(id) {
+    const posts = getPosts();
+    const postIndex = posts.findIndex(post => post.id === id);
+    if (postIndex !== -1) {
+        const commentBox = document.getElementById(`comment-box-${id}`);
+        const commentText = commentBox.querySelector('textarea').value.trim();
+        if (commentText) {
+            posts[postIndex].comments.push(commentText);
+            savePosts(posts);
+            displayPosts();
+        }
+    }
+};
+
+window.displayComments = function(id) {
+    const posts = getPosts();
+    const postIndex = posts.findIndex(post => post.id === id);
+    if (postIndex!== -1) {
+        const commentList = document.getElementById(`comment-list-${id}`);
+        commentList.innerHTML = '';
+        posts[postIndex].comments.forEach(comment => {
+            commentList.insertAdjacentHTML('beforeend', `
+                <li class="list-group-item">${comment}</li>
+            `);
+        });
+    }
+}

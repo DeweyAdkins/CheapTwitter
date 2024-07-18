@@ -357,6 +357,48 @@ button:hover {
     color: darkred;
 }
 
+.comment-box {
+    display: flex;
+    margin-top: 10px;
+}
+
+.comment-box textarea {
+    width: 100%;
+    border-radius: 5px;
+    resize: none;
+}
+
+.comment-box button {
+    margin-top: 5px;
+}
+
+.post-footer {
+    display: flex;
+    align-items: center;
+}
+
+.post-footer i {
+    margin-right: 5px; /* Adjust as necessary */
+}
+
+.post-footer span {
+    margin-left: -5px; /* Adjust as necessary to bring the count closer to the icon */
+}
+
+.liked {
+    color: red;
+}
+
+.comment {
+    margin-left: 20px; /* Indent comments */
+}
+
+.comment-box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Media Queries for Responsiveness */
 @media only screen and (max-width: 1200px) {
     .sidebar, .profile-sidebar {
