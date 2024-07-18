@@ -352,3 +352,8 @@ button:hover {
     right: 10px;
     cursor: pointer;
 }
+
+.close-button:hover {
+    color: darkred;
+}
+

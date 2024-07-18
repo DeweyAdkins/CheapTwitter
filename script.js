@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timestamp: now.toISOString(),
             content,
             image,
-            profileImage: 'https://via.placeholder.com/50'
+            profileImage: 'https://via.placeholder.com/50',
         };
         posts.push(newPost);
         savePosts(posts);
@@ -144,9 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="post-footer">
                         <i class="far fa-comment"></i>
-                        <i class="fas fa-retweet"></i>
                         <i class="far fa-heart"></i>
-                        <i class="fas fa-share"></i>
                     </div>
                 </div>
             </div>
@@ -244,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deletePost = deletePost;
-
+ 
     displayPosts();
 
     // Show the popup when the hashtag button is clicked

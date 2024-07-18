@@ -8,11 +8,14 @@
 </head>
 <body>
 <div class="landing-container">
+    <!-- Logo image -->
     <img src="images/AX.png" class="landing-logo">
 
     <div class="landing-content">
+         <!-- Maintenance message -->
         <p>Website is Under Maintenance...</p>
         <h1>We Are <span>Launching</span> Soon!</h1>
+        <!-- Countdown timer -->
         <div class="launch-time">
             <div>
                 <p id="days">00</p>
@@ -31,36 +34,43 @@
                 <span>Seconds</span>
             </div>
         </div>
+         <!-- Learn more button -->
         <button type="button">Learn More <img src="images/AX.png"></button>
     </div>
+    <!-- Rocket image -->
     <img src="images/rocket (1).png" class="rocket" alt="rocket">
 </div>
 
 <script>
+    // Set the date we're counting down to
     let countDownDate = new Date("August 1, 2024 00:00:00").getTime();
+    // Update the countdown every 1 second
     let x = setInterval(function(){
-        let now = new Date().getTime();
-        let distance = countDownDate - now;
+        let now = new Date().getTime(); // Get the current time
+        let distance = countDownDate - now; // Find the distance between now and the countdown date
 
+        // Calculate the time left in days, hours, minutes, and seconds
         let days = Math.floor(distance / (1000 * 60 * 60 * 24));
         let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+        
+        // Display the result in the respective elements
         document.getElementById("days").innerHTML = days;
         document.getElementById("hours").innerHTML = hours;
         document.getElementById("minutes").innerHTML = minutes;
         document.getElementById("seconds").innerHTML = seconds;
 
+        // If the countdown is finished, display "00" in all elements
         if (distance < 0) {
-            clearInterval(x);
+            clearInterval(x); // Stop the countdown
             document.getElementById("days").innerHTML = "00";
             document.getElementById("hours").innerHTML = "00";
             document.getElementById("minutes").innerHTML = "00";
             document.getElementById("seconds").innerHTML = "00";
 
 
-    }},1000);
+    }},1000); // Run this function every second
 
 </script>
 
