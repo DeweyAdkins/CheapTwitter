@@ -10,45 +10,45 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-3 sidebar text-white p-4">
-                <h1 class="mb-4 logo-container">
-                    <img src="images/AX.png" alt="Anomalous X Logo">
-                    <span>Anomalous X</span>
+    <div class="container-fluid"> <!-- Full-width container -->
+        <div class="row"> <!-- Bootstrap row for layout -->
+            <nav class="col-md-3 sidebar text-white p-4"> <!-- Sidebar navigation, taking up 3 columns -->
+                <h1 class="mb-4 logo-container"> <!-- Logo container -->
+                    <img src="images/AX.png" alt="Anomalous X Logo"> <!-- Logo image -->
+                    <span>Anomalous X</span> <!-- Website name -->
                 </h1>
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li>
-                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li>
+                <ul class="nav flex-column"> <!-- Vertical navigation list -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-home"></i> Home</a></li> <!-- Home link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-hashtag"></i> Explore</a></li> <!-- Explore link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-bell"></i> Notifications</a></li> <!-- Notifications link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-envelope"></i> Messages</a></li> <!-- Messages link -->
+                    <li class="nav-item"><a href="links.html" class="nav-link text-white"><i class="fas fa-user"></i> Profile</a></li> <!-- Profile link -->
                 </ul>
             </nav>
-            <div class="col-md-6 main-content p-4">
-                <div class="tweet-box mb-4 p-3 bg-white rounded shadow-sm position-relative">
-                    <form id="postForm">
-                        <input type="hidden" id="postId">
-                        <div class="form-group position-relative">
-                            <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" maxlength="280"></textarea>
-                            <div id="imagePreview" class="mt-2 position-absolute"></div>
-                            <small id="charCount" class="text-muted">0/280</small>
+            <div class="col-md-6 main-content p-4"> <!-- Main content area, taking up 6 columns -->
+                <div class="tweet-box mb-4 p-3 bg-white rounded shadow-sm position-relative"> <!-- Tweet input box -->
+                    <form id="postForm"> <!-- Form for posting tweets -->
+                        <input type="hidden" id="postId"> <!-- Hidden input for post ID -->
+                        <div class="form-group position-relative"> <!-- Form group for tweet content -->
+                            <textarea id="content" class="form-control" rows="3" placeholder="What's happening?" maxlength="280"></textarea> <!-- Textarea for tweet content -->
+                            <div id="imagePreview" class="mt-2 position-absolute"></div> <!-- Image preview area -->
+                            <small id="charCount" class="text-muted">0/280</small> <!-- Character count display -->
                         </div>
                         
-                        <!-- Add Hashtag Button to the Tweet Options -->
+                        <!-- Tweet options including image upload and hashtag button -->
                         <div class="tweet-options d-flex align-items-center">
-                            <i class="far fa-image" id="imageButton"></i>
-                            <input type="file" id="imageUpload" style="display: none;" accept="image/*">
+                            <i class="far fa-image" id="imageButton"></i> <!-- Image upload button -->
+                            <input type="file" id="imageUpload" style="display: none;" accept="image/*"> <!-- Hidden file input for image upload -->
                             <i class="fas fa-hashtag" id="hashtagButton"></i> <!-- Hashtag Button -->
-                            <button type="submit" class="btn btn-primary ml-auto">Tweet</button>
+                            <button type="submit" class="btn btn-primary ml-auto">Tweet</button> <!-- Submit button for posting tweet -->
                         </div>
                     </form>
                 </div>
-                <div class="posts" id="posts"></div>
-            <div class="col-md-3 profile-sidebar bg-light p-4">
-                <div class="search-bar mb-4 position-relative">
-                    <input type="text" class="form-control" placeholder="Search Anomalous X">
-                    <div id="searchSuggestions" class="dropdown-menu"></div>
+                <div class="posts" id="posts"></div> <!-- Container for displaying posts -->
+            <div class="col-md-3 profile-sidebar bg-light p-4"> <!-- Profile sidebar, taking up 3 columns -->
+                <div class="search-bar mb-4 position-relative"> <!-- Search bar -->
+                    <input type="text" class="form-control" placeholder="Search Anomalous X"> <!-- Search input -->
+                    <div id="searchSuggestions" class="dropdown-menu"></div> <!-- Dropdown for search suggestions -->
                 </div>
                 <h5 class="font-weight-bold">Trends For You <i class="fas fa-cog"></i></h5>
                 <ul class="list-group list-group-flush trends-list">
