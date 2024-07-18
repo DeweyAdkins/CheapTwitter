@@ -14,7 +14,9 @@ document.querySelector('#loginForm').addEventListener('submit', async function (
 
         const result = await response.json();
         const messageElement = document.getElementById('message');
+        
         if (response.status === 200) {
+            localStorage.setItem('loggedIn',true);
             messageElement.textContent = result.message;
             window.location.href = 'index.html'; // Redirect to the main page immediately
         } else {

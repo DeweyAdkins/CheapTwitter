@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname)));
 
 // Set up sessions
 app.use(session({
-    secret: 'your-secret-key', // Change this to a random string
-    resave: false,
+    secret: 'k', // Change this to a random string
+    resave: true,
     saveUninitialized: true,
     cookie: { secure: false } // Set to true if using https
 }));
@@ -75,18 +75,6 @@ app.post('/login', (req, res) => {
         }
     });
 });
-
-// Middleware to check if the user is authenticated
-function isAuthenticated(req, res, next) {
-    if (req.session.user) {
-        next();
-    } else {
-        res.redirect('indexlog.html'); // Redirect to login page if not authenticated
-    }
-}
-
-// Apply isAuthenticated middleware to protected routes
-app.use('/main.html', isAuthenticated);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
