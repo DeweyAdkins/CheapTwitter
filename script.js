@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
             content,
             image,
             profileImage: 'https://via.placeholder.com/50',
+            likes: 0, // Initialize likes to 0
+            comments: [] // Initialize comments array
         };
         posts.push(newPost);
         savePosts(posts);
@@ -143,16 +145,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="btn btn-secondary mt-2" id="cancel-${post.id}" style="display:none;" onclick="cancelEdit('${post.id}')">Cancel</button>
                     </div>
                     <div class="post-footer">
-                        <i onclick="commentPosts('${post.id}')" class="far fa-comment"></i>
-                        <i onclick="likePosts('${post.id}')" class="far fa-heart" id="like-icon-${post.id}"></i>
-                        <span id="like-count-${post.id}">${post.likes}</span>
-                    </div>
-                    </div>
-                    <div class="comment-box" id="comment-box-${post.id}" style="display: none;">
-                        <textarea class="form-control" rows="2" placeholder="Write a comment..."></textarea>
-                        <button class="btn btn-primary mt-2" onclick="addComment('${post.id}')">Comment</button>
-                    </div>
+                    <i onclick="commentPosts('${post.id}')" class="far fa-comment"></i>
+                    <i onclick="likePosts('${post.id}')" class="far fa-heart" id="like-icon-${post.id}"></i>
+                    <span id="like-count-${post.id}">${post.likes || 0}</span> <!-- Default to 0 if undefined -->
                 </div>
+                <div class="comment-box" id="comment-box-${post.id}" style="display: none;">
+                    <textarea class="form-control" rows="2" placeholder="Write a comment..."></textarea>
+                    <button class="btn btn-primary mt-2" onclick="addComment('${post.id}')">Comment</button>
+                </div>
+            </div>
+        </div>
         `).join('');
     }
 
@@ -249,19 +251,43 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deletePost = deletePost;
 
 
-    // Like post functionality
+    // window.likePosts = function(id) {
+    //     const posts = getPosts();
+    //     const postIndex = posts.findIndex(post => post.id === id);
+    //     if (postIndex !== -1) {
+    //         posts[postIndex].likes += 1;
+    //         savePosts(posts);
+    //         const likeCountElement = document.getElementById(`like-count-${id}`);
+    //         likeCountElement.textContent = posts[postIndex].likes;
+    //         const likeIconElement = document.getElementById(`like-icon-${id}`);
+    //         likeIconElement.classList.add('liked'); // Add a class to change the color
+    //     }
+    // };
+     
     window.likePosts = function(id) {
         const posts = getPosts();
         const postIndex = posts.findIndex(post => post.id === id);
         if (postIndex !== -1) {
+            // Ensure likes is a number
+            if (typeof posts[postIndex].likes !== 'number') {
+                posts[postIndex].likes = 0;
+            }
+    
             posts[postIndex].likes += 1;
             savePosts(posts);
+    
             const likeCountElement = document.getElementById(`like-count-${id}`);
-            likeCountElement.textContent = posts[postIndex].likes;
+            if (likeCountElement) {
+                likeCountElement.textContent = posts[postIndex].likes;
+            }
+    
             const likeIconElement = document.getElementById(`like-icon-${id}`);
-            likeIconElement.classList.add('liked'); // Add a class to change the color
+            if (likeIconElement) {
+                likeIconElement.classList.add('liked'); // Add a class to change the color
+            }
         }
     };
+    
 
     // Show comment box
     window.commentPosts = function(id) {
@@ -390,6 +416,8 @@ window.likePosts = function(id) {
         document.getElementById(`like-icon-${id}`).style.color = 'red'; // Change color to red when liked
     }
 };
+
+
 
 window.addComment = function(id) {
     const posts = getPosts();
